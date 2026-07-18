@@ -1,6 +1,15 @@
 # Luminá
 
-Site institucional + painel admin para marmitaria fitness (protocolos, sabores da semana, kits por quantidade). Contexto completo em `Ecossistema/NorthCode/Projeto Luminá.md`.
+Site institucional + painel admin para marmitaria fitness — protocolos por objetivo, sabores da semana e kits por quantidade, com pedido via WhatsApp.
+
+Projeto desenvolvido pela NorthCode. Contexto completo do projeto (escopo, decisões, proposta) em `Ecossistema/NorthCode/Luminá/`.
+
+## Funcionalidades
+
+- **Site público**: Home, Cardápio (Protocolos, Sabores da Semana, Lanches/Sobremesas) e Kits, com botão "Pedir via WhatsApp" em cada item
+- **Painel admin** (`/admin`): protegido por login, para o cliente gerenciar cardápio, kits e pedidos sem depender de programador
+- Sem carrinho, sem conta de cliente e sem pagamento online — pedido e pagamento acontecem via WhatsApp/Pix, fora do site
+- Design responsivo (mobile-first, já que é o uso predominante do público)
 
 ## Stack
 
@@ -30,8 +39,14 @@ Site público em `/`, painel admin em `/admin` (protegido por login Supabase).
 
 ## Estrutura
 
-- `src/app/(site)` — páginas públicas (a organizar)
-- `src/app/admin` — painel administrativo
+- `src/app/(site)` — páginas públicas (Home, Cardápio, Kits) com Header/Footer compartilhados
+- `src/app/admin` — painel administrativo (login + dashboard)
+- `src/lib/menu-data.ts` — dados reais do cardápio (protocolos, sabores da semana, lanches, kits)
 - `src/lib/db/schema.ts` — schema Drizzle (`protocolos`, `sabores_semana`, `lanches_sobremesas`, `kits`, `pedidos`)
 - `src/lib/supabase` — clientes Supabase (browser/server)
+- `src/lib/site-config.ts` — dados de contato do cliente (placeholders até serem fornecidos)
 - `middleware.ts` — protege as rotas `/admin/*`, redireciona para `/admin/login` sem sessão
+
+## Status
+
+Em desenvolvimento. Páginas públicas com dados reais do cardápio prontas; falta conectar ao Supabase (schema ainda não aplicado em nenhum banco) e construir os CRUDs do painel admin.
